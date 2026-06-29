@@ -1,13 +1,14 @@
-const express = require('express');
-const foodPartnerController = require("../controllers/food-partner.controller");
-const authMiddleware = require("../middlewares/auth.middleware");
+import express from "express";
+import foodPartnerController from "../controllers/food-partner.controller.js";
+import authMiddleware from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-
 /* /api/food-partner/:id */
-router.get("/:id",
+router.get(
+    "/:id",
     authMiddleware.authUserMiddleware,
-    foodPartnerController.getFoodPartnerById)
+    foodPartnerController.getFoodPartnerById
+);
 
-module.exports = router;
+export default router;

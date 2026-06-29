@@ -1,22 +1,26 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-
-const saveSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-        required: true
+const likeSchema = new mongoose.Schema(
+    {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
+            required: true,
+        },
+        food: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "food",
+            required: true,
+        },
     },
-    food: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'food',
-        required: true
+    {
+        timestamps: true,
     }
-}, {
-    timestamps: true
-})
+);
 
+// Prevent a user from liking the same food multiple times
+likeSchema.index({ user: 1, food: 1 }, { unique: true });
 
-const saveModel = mongoose.model('save', saveSchema);
+const likeModel = mongoose.model("like", likeSchema);
 
-module.exports = saveModel;
+export default likeModel;

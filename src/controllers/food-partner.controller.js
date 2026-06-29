@@ -1,27 +1,25 @@
-const foodPartnerModel = require('../models/foodpartner.model');
-const foodModel = require('../models/food.model');
+import foodPartnerModel from "../models/foodpartner.model.js";
+import foodModel from "../models/food.model.js";
 
-async function getFoodPartnerById(req, res) {
-
+export async function getFoodPartnerById(req, res) {
     const foodPartnerId = req.params.id;
 
-    const foodPartner = await foodPartnerModel.findById(foodPartnerId)
-    const foodItemsByFoodPartner = await foodModel.find({ foodPartner: foodPartnerId })
+    const foodPartner = await foodPartnerModel.findById(foodPartnerId);
+    const foodItemsByFoodPartner = await foodModel.find({
+        foodPartner: foodPartnerId,
+    });
 
     if (!foodPartner) {
-        return res.status(404).json({ message: "Food partner not found" });
+        return res.status(404).json({
+            message: "Food partner not found",
+        });
     }
 
     res.status(200).json({
         message: "Food partner retrieved successfully",
         foodPartner: {
             ...foodPartner.toObject(),
-            foodItems: foodItemsByFoodPartner
-        }
-
+            foodItems: foodItemsByFoodPartner,
+        },
     });
 }
-
-module.exports = {
-    getFoodPartnerById
-};
