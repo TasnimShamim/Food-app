@@ -1,11 +1,15 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
+
+
+
 function connectDB() {
-    mongoose.connect("mongodb://localhost:27017/food-app")
-    .then(() => {
-        console.log("Connected to MongoDB");
-    })
-    .catch((err) => {
-        console.error("Error connecting to MongoDB", err);
-    });
+    mongoose.connect(process.env.MONGODB_URI)
+        .then(() => {
+            console.log("MongoDB connected");
+        })
+        .catch((err) => {
+            console.log("MongoDB connection error:", err);
+        })
 }
-export default connectDB;
+
+module.exports = connectDB;
