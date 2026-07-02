@@ -10,11 +10,11 @@ const upload = multer({
     storage: multer.memoryStorage(),
 });
 
-/* POST /api/food [Protected] */
+/* POST /api/food/ [Protected] */
 router.post(
     "/",
     authMiddleware.authFoodPartnerMiddleware,
-    upload.single("mama"),
+    upload.single("video "),
     foodController.createFood
 );
 

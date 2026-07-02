@@ -14,9 +14,9 @@ export async function authFoodPartnerMiddleware(req, res, next) {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);//it will verify the token and return the decoded payload, which contains the food partner's ID.
 
-        const foodPartner = await foodPartnerModel.findById(decoded.id);
+        const foodPartner = await foodPartnerModel.findById(decoded.id);//it will find the food partner in the database using the ID from the decoded token.
 
         if (!foodPartner) {
             return res.status(401).json({
